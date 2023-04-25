@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 
     struct dirent* dirp;
     while((dirp = readdir(dp)) != NULL) {
-        if(strcmp(dirp->d_name, ".")==0 || strcmp(dirp->d_name, "..")==0) continue;
+        if(dirp->d_name[0] == '.') continue;
         printf("%s\n", dirp->d_name);
     }
     closedir(dp);
