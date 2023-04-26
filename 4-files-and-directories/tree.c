@@ -30,7 +30,6 @@ int tree_walk(const char* path_name, const char* prefix, uint depth, struct coun
 
     struct dirent* dirp;
     struct entry_t* flist=NULL, *current, *it;
-    uint size = 0;
     while((dirp = readdir(dp)) != NULL) {
         if(dirp->d_name[0] == '.') continue;
 
@@ -49,7 +48,6 @@ int tree_walk(const char* path_name, const char* prefix, uint depth, struct coun
             current->next = it->next;
             it->next = current;
         }
-        size++;
     }
 
     closedir(dp);
@@ -79,6 +77,15 @@ int tree_walk(const char* path_name, const char* prefix, uint depth, struct coun
             cnt->files++;
         }
     }
+
+    it = flist;
+    while(it) {
+        current = it;
+        it = it->next;
+        free(current->name);
+        free(current);
+    }
+
     return 0;
 }
 
