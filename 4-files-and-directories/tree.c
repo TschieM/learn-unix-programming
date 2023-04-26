@@ -46,8 +46,6 @@ int tree_walk(const char* path_name, const char* prefix, uint depth, struct coun
             flist = current;
         } else {
             for(it = flist;it->next && strcmp(current->name, it->next->name)>0; it=it->next);
-            // it = flist;
-            // while(it->next && strcmp(current->name, it->next->name)>0) it = it->next;
             current->next = it->next;
             it->next = current;
         }
