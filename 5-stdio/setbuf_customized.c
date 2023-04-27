@@ -17,21 +17,12 @@ void setbuf_custmized(FILE *restrict fp, char *restrict buf ) {
 }
 
 int main(int argc, char* argv[]) {
-    const char* tmpfile = "tempfile";
-    if(creat(tmpfile, RWXRWXRWX) < 0) {
-        fprintf(stderr, "Error creating temp file\n");
-        return -1;
-    }
-    FILE* fp = fopen(tmpfile, "r+");
+    FILE* fp = tmpfile();
     if(!fp) {
-        fprintf(stderr, "Error Opening %s\n", tmpfile);
+        fprintf(stderr, "Error Creating temp file\n");
         return -1;
     }
-    if (unlink(tmpfile) < 0) {
-        fprintf(stderr, "Error unlinking temp file\n");
-        return -1;
-    }
-    
+
     setbuf_custmized(fp, NULL);
     if(fp->_flags & _IO_UNBUFFERED) fprintf(stdout, "file unbuffered\n");
     else if(fp->_flags & _IO_LINE_BUF) fprintf(stdout, "file linebuffered\n");
