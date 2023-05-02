@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <signal.h>
+#include <unistd.h>
 
 /*
  Use ./a.out & to start the program in the background
@@ -23,6 +24,6 @@ int main (int argc, char* argv[]) {
     if(signal(SIGUSR2, sig_cb) == SIG_ERR) {
         fprintf(stderr, "signal error\n");
     }
-    while(1);
+    while(1) pause();
     return 0;
 }
