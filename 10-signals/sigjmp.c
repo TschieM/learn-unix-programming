@@ -2,12 +2,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <stdbool.h>
 #include <setjmp.h>
 #include <time.h>
 
 static sigjmp_buf sigjmp_env;
-static volatile bool can_jump = 0;
+static volatile sig_atomic_t can_jump = 0;
 
 static void sig_alarm_handler(int signo) {
     fprintf(stdout, "Caught by alarm signal\n");
